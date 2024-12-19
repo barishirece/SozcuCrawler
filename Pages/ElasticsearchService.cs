@@ -41,9 +41,9 @@ namespace SozcuCrawl.Pages
             var response = await _client.SearchAsync<NewsItem>(s => s
                 .Size(64)
                 .Query(q => q
-                    .Match(m => m
+                    .Wildcard(w => w
                         .Field(f => f.Title)
-                        .Query(query)
+                        .Value($"*{query}*")  // query terimi herhangi bir yerde yer alabilir
                     )
                 )
             );
