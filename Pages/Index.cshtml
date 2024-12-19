@@ -1,0 +1,38 @@
+﻿@page
+@model IndexModel
+@using Crawl
+@{
+    ViewData["Title"] = "Home page";
+    await CrawlService.GetNewsDataAsync();
+    // List<NewsItem> newsData = await ElasticsearchService.SearchNewsAsync();
+    int id = 1;
+
+}
+
+<form method="get">
+    <div class="form-group">
+        <input type="text" id="searchTerm" name="searchTerm" class="" value="@Model.SearchTerm" />
+        <button type="submit" class="btn-primary">Ara</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Başlık</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var news in Model.NewsItems)
+        {
+            <tr>
+                <td><b>@id</b></td>
+                <td>@news.Title</td>
+                <td><a href="@news.Link" target="_blank">Linke Git</a></td>
+            </tr>
+            id++;
+        }
+    </tbody>
+</table>
